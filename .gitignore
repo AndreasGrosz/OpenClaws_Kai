@@ -1,0 +1,13 @@
+# Secrets
+.env
+*.pem
+*.key
+
+# Backups
+*.tar.gz
+*.bak
+
+# Editor
+.vscode/
+.idea/
+*.swp

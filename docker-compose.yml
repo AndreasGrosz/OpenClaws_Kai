@@ -1,0 +1,56 @@
+services:
+  docker-proxy:
+    image: tecnativa/docker-socket-proxy
+    restart: unless-stopped
+    environment:
+      CONTAINERS: 1
+      IMAGES: 1
+      NETWORKS: 1
+      POST: 1
+      VOLUMES: 0
+      SERVICES: 0
+      TASKS: 0
+      SECRETS: 0
+      CONFIGS: 0
+      EXEC: 0
+      SWARM: 0
+      NODES: 0
+      BUILD: 0
+      SYSTEM: 0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - openclaw-internal
+    expose:
+      - "2375"
+
+  openclaw:
+    image: ghcr.io/phioranex/openclaw-docker:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - DOCKER_HOST=tcp://docker-proxy:2375
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - openclaw_config:/home/node/.openclaw
+      - openclaw_workspace:/home/node/workspace
+    networks:
+      - openclaw-internal
+    command: ["gateway", "--port", "3000", "--bind", "lan"]
+    deploy:
+      resources:
+        limits:
+          cpus: "3"
+          memory: 6G
+    depends_on:
+      - docker-proxy
+
+volumes:
+  openclaw_config:
+  openclaw_workspace:
+
+networks:
+  openclaw-internal:
+    driver: bridge
