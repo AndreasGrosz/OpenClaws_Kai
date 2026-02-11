@@ -27,15 +27,19 @@ services:
   openclaw:
     image: ghcr.io/phioranex/openclaw-docker:latest
     restart: unless-stopped
+    user: "0:0"
+    privileged: true
     env_file:
       - .env
     environment:
       - DOCKER_HOST=tcp://docker-proxy:2375
+      - HOME=/root
     ports:
       - "127.0.0.1:3000:3000"
     volumes:
-      - openclaw_config:/home/node/.openclaw
-      - openclaw_workspace:/home/node/workspace
+      - openclaw_config:/root/.openclaw
+      - openclaw_workspace:/root/workspace
+      - openclaw_local:/root/.local
     networks:
       - openclaw-internal
     command: ["gateway", "--port", "3000", "--bind", "lan"]
@@ -50,6 +54,7 @@ services:
 volumes:
   openclaw_config:
   openclaw_workspace:
+  openclaw_local:
 
 networks:
   openclaw-internal:
