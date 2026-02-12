@@ -1,6 +1,6 @@
 # OpenClaw "Kai" - Produktiv-Setup
 
-**Stand:** 2026-02-11
+**Stand:** 2026-02-12
 **Status:** Produktiv
 **Bot:** @Kai_Hambot
 
@@ -47,7 +47,7 @@ Internet
 ┌──────────────────────────────────────────┐
 │  Docker: openclaw-openclaw-1             │
 │  Image: ghcr.io/phioranex/openclaw-docker│
-│  Model: openai/gpt-4.1-nano              │
+│  Model: anthropic/claude-sonnet-4-5      │
 │  + Whisper (lokal, persistent)           │
 └──────────────────────────────────────────┘
      │
@@ -84,9 +84,9 @@ sudo docker compose ps
 sudo docker exec openclaw-openclaw-1 /app/packages/clawdbot/node_modules/.bin/openclaw models set <model>
 
 # Beispiele:
-# openai/gpt-4.1-nano     (sehr günstig, aktuell)
-# openai/gpt-4.1-mini     (günstig)
+# openai/gpt-4.1-nano         (sehr günstig, zu schwach für autonomes Arbeiten)
 # anthropic/claude-haiku-4-5  (mittel)
+# anthropic/claude-sonnet-4-5 (stark, aktuell)
 ```
 
 ---
@@ -123,8 +123,8 @@ sudo docker exec openclaw-openclaw-1 /app/packages/clawdbot/node_modules/.bin/op
 | Posten | Kosten/Monat |
 |--------|--------------|
 | Hetzner CX33 | ~6€ |
-| OpenAI API (gpt-4.1-nano) | ~1-5€ (je nach Nutzung) |
-| **Total** | **~7-11€** |
+| Anthropic API (claude-sonnet-4-5) | ~10-30€ (je nach Nutzung) |
+| **Total** | **~16-36€** |
 
 ---
 
